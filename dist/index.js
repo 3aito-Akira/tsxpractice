@@ -1,41 +1,4 @@
-const data = `
-akira saito,40,0
-John Smith,17,0
-Mary Sue,14,1
-`;
-const users = [];
-const lines = data.split("\n");
-let i = 0;
-console.log(lines);
-for (const line of lines) {
-    if (line === "") {
-        continue;
-    }
-    const [name, ageString, premiumUserString] = line.split(",");
-    const age = Number(ageString);
-    const premiumUser = (premiumUserString === "1");
-    users.push({ name, age, premiumUser });
-    console.log("i = " + i);
-    i++;
-}
-for (const user of users) {
-    if (user.premiumUser) {
-        console.log(`${user.name} (${user.age})はプレミアムユーザーです`);
-    }
-    else {
-        console.log(`${user.name} (${user.age})はプレミアムユーザーではありません`);
-    }
-}
-;
-function range(min, max) {
-    const result = [];
-    for (let i = min; i < max; i++) {
-        result.push(i);
-    }
-    return result;
-}
-;
-console.log(range(5, 10));
+"use strict";
 const calBMI = ({ height, weight }) => { return weight / height ** 2; };
 const akira = { height: 1.84, weight: 72 };
 console.log(calBMI(akira));
@@ -72,4 +35,20 @@ const fromAge = (age) => ({ name: "John Smith", age, });
 const f = fromAge;
 const object2 = f(100);
 console.log(object2);
-export {};
+function repeat(element, length) {
+    const result = [];
+    for (let i = 0; i < length; i++) {
+        result.push(element);
+    }
+    return result;
+}
+function map(array, callback) {
+    const result = [];
+    for (const elm of array) {
+        result.push(callback(elm));
+    }
+    return result;
+}
+const data = [1, 1, 2, 3, 5, 8, 13];
+const result = map((data), (x) => String(x * 10));
+console.log(result);

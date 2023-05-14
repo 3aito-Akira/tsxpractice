@@ -1,75 +1,3 @@
-import { stdin, stdout } from "process";
-import { createInterface } from "readline";
-
-/*
-const rl = createInterface({input:stdin,output:stdout});
-const mes ={
-    good:"good",
-    bad:"bad"
-};
-
-rl.question("数値入力",
-    (line) => {
-        const num = Number(line); 
-        console.log(mes[num >=0 ? "good":"bad"]); 
-        rl.close();
-    }
-);
-*/
-
-type User ={
-    name : string;
-    age : number;
-    premiumUser: boolean;
-};
-
-const data:string = `
-akira saito,40,0
-John Smith,17,0
-Mary Sue,14,1
-`;
-
-const users:User[] = [];
-const lines = data.split("\n");
-let i:number = 0;
-
-console.log(lines);
-
-for(const line of lines){
-    if(line === ""){
-        continue;
-    }
-    const[name,ageString,premiumUserString] = line.split(",");
-
-    const age = Number(ageString);
-    const premiumUser = (premiumUserString === "1");
-
-    users.push({name,age,premiumUser});
-    console.log("i = " + i);
-    i++;
-}
-
-for(const user of users){
-    if(user.premiumUser){
-        console.log(`${user.name} (${user.age})はプレミアムユーザーです`);
-    }
-    else{
-        console.log(`${user.name} (${user.age})はプレミアムユーザーではありません`);
-    }
-};
-
-function range(min:number,max:number):number[]{
-    const result: number[] = [];
-
-    for(let i = min; i < max; i++){
-        result.push(i);
-    }
-
-    return result;
-};
-
-console.log(range(5,10));
-
 type Human ={height:number;weight:number};
 const calBMI =({height,weight}:Human):number =>{return weight / height ** 2};
 const akira:Human={height:1.84,weight:72};
@@ -138,4 +66,29 @@ const fromAge = (age:number):HasNameAndAge =>({name:"John Smith",age,});
 const f:(age:number)=>HasName = fromAge;
 const object2:HasName = f(100);
 console.log(object2);
+
+type User2<N> = {
+    name:N;
+}
+
+function repeat<T>(element: T,length:number):T[]{
+    const result: T[] = [];
+    for(let i = 0; i < length;i++){
+        result.push(element);
+    }
+    return result;
+}
+
+function map<T,U>(array:T[],callback:(value:T)=>U):U[]{
+    const result: U[] = [];
+    for(const elm of array){
+        result.push(callback(elm));
+    }
+    return result;
+}
+
+const data = [1,1,2,3,5,8,13];
+const result = map<number,string>((data),(x)=>String(x * 10));
+console.log(result);
+
 
