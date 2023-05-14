@@ -1,32 +1,3 @@
-type Human ={height:number;weight:number};
-const calBMI =({height,weight}:Human):number =>{return weight / height ** 2};
-const akira:Human={height:1.84,weight:72};
-console.log(calBMI(akira));
-
-const sum = (...args:number[]):number => {
-    let result = 0;
-    for(const num of args){
-        result += num;
-    }
-
-    return result;
-};
-
-type HasLength = {length:number};
-const obj:HasLength = "akira";
-console.log("akiraは" + obj.length);
-
-const object = {
-    num:100,
-    arr:[1,2,3,4]
-};
-const {arr:[foo,foo1]} = object;
-console.log("foo" + foo);
-console.log("foo1" + foo1);
-
-const nums = [1,2,3,4,5];
-console.log(sum(...nums));
-
 type User1 = {
     name:string;
     age:number
@@ -40,10 +11,6 @@ console.log(names);
 console.log(users1.filter((u:User1)=>u.age >= 20));
 
 const xRepeat = (num:number):string => "x".repeat(num);
-
-const nums1 = [1,2,3,4,5,6,7,8,9];
-const array2 = nums1.filter((x) => x % 3 == 0);
-console.log(array2);
 
 type func1 = {
     isUsed?:boolean;
@@ -90,20 +57,6 @@ function map<T,U>(array:T[],callback:(value:T)=>U):U[]{
 const data = [1,1,2,3,5,8,13];
 const result = map<number,string>((data),(x)=>String(x * 10));
 console.log(result);
-
-class User{
-    name:string = "";
-    age:number = 0;
-
-    isAdult():boolean{
-        return this.age > 20;
-    }
-
-    setAge(newAge:number){
-        this.age = newAge;
-    }
-}
-
 class User3{
     name:string;
     age:number;
@@ -121,14 +74,6 @@ class User3{
         this.age = newAge;
     }
 }
-
-const akira1 = new User();
-console.log(akira1.name);
-console.log(akira1.isAdult());
-console.log(akira1.age);
-akira1.setAge(40);
-console.log(akira1.isAdult());
-console.log(akira1.age);
 
 const akira3 = new User3("akira",40);
 console.log(akira3.age);
@@ -170,6 +115,77 @@ type MyUserConstructor = new () => User5;
 const MyUser:MyUserConstructor = User5;
 const u = new MyUser();
 console.log(u.name,u.age);
+
+type HasAge = {
+    age:number;
+}
+class User6 {
+    name:string;
+    age:number;
+
+    constructor(name:string,age:number){
+        this.name = name;
+        this.age = age;
+    }
+}
+
+function getPrice(customer:HasAge){
+    if(customer instanceof User6){
+        if(customer.name === "akira"){
+            return 0;
+        }
+    }
+    return customer.age < 18 ? 1000 : 1800;
+}
+
+const customer1:HasAge = {age:15};
+const customer2:HasAge = {age:40};
+const akira2 = new User6("akira",40);
+
+console.log(getPrice(customer1));
+console.log(getPrice(customer2));
+console.log(getPrice(akira2));
+class User{
+    name:string;
+    #age:number;
+
+    constructor(name:string,age:number){
+        this.name = name;
+        this.#age = age;
+    }
+
+    isAdult():boolean{
+        return this.#age > 20;
+    }
+
+    filterOlder(users:readonly User[]):User[]{
+        return users.filter(u=>u.#age > this.#age);
+        //return users.filter(function(u)=>{return u.age > this.#age});
+    }
+}
+
+const akira = new User("akira",40);
+const keiko = new User("keiko",38);
+const bill = new User("bill",75);
+const flora = new User("flora",17);
+const older = akira.filterOlder([keiko,bill]);
+console.log(older);
+
+console.log(akira.isAdult === keiko.isAdult);
+console.log(akira.isAdult.apply(bill,[]));
+console.log(akira.isAdult.apply(keiko,[]));
+console.log(akira.isAdult.apply(flora,[]));
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -10,37 +10,13 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
     return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 };
-var _User4_age;
-const calBMI = ({ height, weight }) => { return weight / height ** 2; };
-const akira = { height: 1.84, weight: 72 };
-console.log(calBMI(akira));
-const sum = (...args) => {
-    let result = 0;
-    for (const num of args) {
-        result += num;
-    }
-    return result;
-};
-const obj = "akira";
-console.log("akiraは" + obj.length);
-const object = {
-    num: 100,
-    arr: [1, 2, 3, 4]
-};
-const { arr: [foo, foo1] } = object;
-console.log("foo" + foo);
-console.log("foo1" + foo1);
-const nums = [1, 2, 3, 4, 5];
-console.log(sum(...nums));
+var _User4_age, _User_age;
 const getName = (u) => u.name;
 const users1 = [{ name: "akira", age: 26 }, { name: "keiko", age: 15 }];
 const names = users1.map(getName);
 console.log(names);
 console.log(users1.filter((u) => u.age >= 20));
 const xRepeat = (num) => "x".repeat(num);
-const nums1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const array2 = nums1.filter((x) => x % 3 == 0);
-console.log(array2);
 const double = (arg) => { console.log(arg * 2); };
 double(100);
 const fromAge = (age) => ({ name: "John Smith", age, });
@@ -64,18 +40,6 @@ function map(array, callback) {
 const data = [1, 1, 2, 3, 5, 8, 13];
 const result = map((data), (x) => String(x * 10));
 console.log(result);
-class User {
-    constructor() {
-        this.name = "";
-        this.age = 0;
-    }
-    isAdult() {
-        return this.age > 20;
-    }
-    setAge(newAge) {
-        this.age = newAge;
-    }
-}
 class User3 {
     constructor(name, age) {
         this.name = name;
@@ -88,13 +52,6 @@ class User3 {
         this.age = newAge;
     }
 }
-const akira1 = new User();
-console.log(akira1.name);
-console.log(akira1.isAdult());
-console.log(akira1.age);
-akira1.setAge(40);
-console.log(akira1.isAdult());
-console.log(akira1.age);
 const akira3 = new User3("akira", 40);
 console.log(akira3.age);
 class User4 {
@@ -129,3 +86,48 @@ class User5 {
 const MyUser = User5;
 const u = new MyUser();
 console.log(u.name, u.age);
+class User6 {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+function getPrice(customer) {
+    if (customer instanceof User6) {
+        if (customer.name === "akira") {
+            return 0;
+        }
+    }
+    return customer.age < 18 ? 1000 : 1800;
+}
+const customer1 = { age: 15 };
+const customer2 = { age: 40 };
+const akira2 = new User6("akira", 40);
+console.log(getPrice(customer1));
+console.log(getPrice(customer2));
+console.log(getPrice(akira2));
+class User {
+    constructor(name, age) {
+        _User_age.set(this, void 0);
+        this.name = name;
+        __classPrivateFieldSet(this, _User_age, age, "f");
+    }
+    isAdult() {
+        return __classPrivateFieldGet(this, _User_age, "f") > 20;
+    }
+    filterOlder(users) {
+        return users.filter(u => __classPrivateFieldGet(u, _User_age, "f") > __classPrivateFieldGet(this, _User_age, "f"));
+        //return users.filter(function(u)=>{return u.age > this.#age});
+    }
+}
+_User_age = new WeakMap();
+const akira = new User("akira", 40);
+const keiko = new User("keiko", 38);
+const bill = new User("bill", 75);
+const flora = new User("flora", 17);
+const older = akira.filterOlder([keiko, bill]);
+console.log(older);
+console.log(akira.isAdult === keiko.isAdult);
+console.log(akira.isAdult.apply(bill, []));
+console.log(akira.isAdult.apply(keiko, []));
+console.log(akira.isAdult.apply(flora, []));
