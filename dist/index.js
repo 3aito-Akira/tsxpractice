@@ -116,6 +116,7 @@ class User {
         return __classPrivateFieldGet(this, _User_age, "f") > 20;
     }
     filterOlder(users) {
+        console.log("filterOlder this age" + __classPrivateFieldGet(this, _User_age, "f"));
         return users.filter(u => __classPrivateFieldGet(u, _User_age, "f") > __classPrivateFieldGet(this, _User_age, "f"));
         //return users.filter(function(u)=>{return u.age > this.#age});
     }
@@ -131,3 +132,10 @@ console.log(akira.isAdult === keiko.isAdult);
 console.log(akira.isAdult.apply(bill, []));
 console.log(akira.isAdult.apply(keiko, []));
 console.log(akira.isAdult.apply(flora, []));
+console.log("エラー発生前");
+function throwError() {
+    const error = new Error("エラーを発生させた");
+    throw error;
+}
+throwError();
+console.log("エラー発生後");
