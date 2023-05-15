@@ -80,6 +80,7 @@ class User3 {
         return `${this.name} (${this.age}) 「${message}」`;
     }
 }
+//closure
 const user3Akira = new User3("akira", 40);
 console.log(user3Akira.getMessage1("nice to meet you"));
 function createUser1(name, age) {
