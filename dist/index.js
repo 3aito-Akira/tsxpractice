@@ -47,14 +47,14 @@ class User {
 }
 _User_age = new WeakMap();
 const akira = new User("akira", 40);
-const keiko = new User("keiko", 38);
+const kate = new User("kate", 38);
 const bill = new User("bill", 75);
 const flora = new User("flora", 17);
-const older = akira.filterOlder([keiko, bill]);
+const older = akira.filterOlder([kate, bill]);
 console.log(older);
-console.log(akira.isAdult === keiko.isAdult);
+console.log(akira.isAdult === kate.isAdult);
 console.log(akira.isAdult.apply(bill, []));
-console.log(akira.isAdult.apply(keiko, []));
+console.log(akira.isAdult.apply(kate, []));
 console.log(akira.isAdult.apply(flora, []));
 function createUser(name, age) {
     if (name === "") {
