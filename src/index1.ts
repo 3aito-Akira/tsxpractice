@@ -59,7 +59,7 @@ function getSpecies(animal:Animal):string{
 
 const mixedSpecies = Math.random() < 0.5 ? getName:getSpecies;
 
-//エラーhuman1 & Animalでないといけない
+//エラーHuman1 & Animalでないといけない
 //mixedSpecies(cat1);　
 
 //型は(Animal & Human1) => string | number
@@ -248,6 +248,7 @@ function showNumber(object:Option<number>):void {
     }
 };
 
+//
 function isSome<T>(object:Option<T>):object is {tag:"some";value:T}{
     return object.tag === "some";
 };

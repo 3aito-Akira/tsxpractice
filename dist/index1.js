@@ -32,7 +32,7 @@ function getSpecies(animal) {
     return animal.species;
 }
 const mixedSpecies = Math.random() < 0.5 ? getName : getSpecies;
-//エラーhuman1 & Animalでないといけない
+//エラーHuman1 & Animalでないといけない
 //mixedSpecies(cat1);　
 //型は(Animal & Human1) => string | number
 const value = mixedSpecies(akira2);
@@ -149,6 +149,7 @@ function showNumber(object) {
     }
 }
 ;
+//
 function isSome(object) {
     return object.tag === "some";
 }
